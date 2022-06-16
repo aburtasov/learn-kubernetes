@@ -1,0 +1,67 @@
+k8s worker node --> 2 pods --> pod(with container Web Server) and pod(with containers Web Server and API Server)
+
+kubectl get nodes
+
+kubectl get pods
+
+kubectl run hello --generator=run-pod/v1 --image=httpd:latest(name-repo/name-image:latest) --port=80
+
+kubectl get pods
+
+kubectl delete pods hello
+
+kubectl run hello --generator=run-pod/v1 --image=httpd:latest(name-repo/name-image:latest) --port=80
+
+kubectl describe pods hello
+
+kubectl exec hello date
+
+kubectl exec hello sh
+
+kubectl exec -it hello sh
+
+kubectl logs hello
+
+kubectl get pods
+
+kubectl port-forward hello 7788:80
+
+kubectl delete pods hello
+
+=====================================================================================================================
+
+Manifest file
+
+=====================================================================================================================
+
+kubectl apply -f pod_myweb_ver1.yaml
+
+kubectl get pods
+
+kubectl describe pods my-Web
+
+kubectl delete -f pod_myweb_ver1.yaml
+
+kubectl apply -f pod_myweb_ver1.yaml
+
+kubectl describe pods my-Web
+
+kubectl port-forward my-web 8888:80
+
+kubectl delete -f pod_myweb_ver1.yaml
+
+kubectl apply -f pod_myweb_ver2.yaml
+
+kubectl apply -f pod_myapp.yaml
+
+kubectl get pods
+
+kubectl describe pods my-app
+
+kubectl port-forward my-app 5555:80
+
+kubectl port-forward my-app 5555:8080
+
+kubectl describe pods my-app
+
+kubectl get nodes  // after crash node where was running our pods
