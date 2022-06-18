@@ -1,3 +1,4 @@
 kubectl scale deployment --replicas=40 media-transcode-instance -n prod
 
 k9s
+

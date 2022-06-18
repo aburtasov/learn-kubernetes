@@ -1,0 +1,45 @@
+apiVersion : apps/v1
+kind : Deployment
+metadata:
+  name : my-web-deployment-autoscaling
+  labels:
+    app : my-k8s-app
+    env : prod
+    owner : user
+spec:
+  replicas : 2
+  selector:
+    matchLabels:
+      project : mossad
+  template:
+    metadata:
+      lables:
+        project : mossa
+    spec:
+      containers:
+        - name: kgb-web
+          image: repo_name/image_name:version2  # version3
+          ports:
+            - containerPort:80
+
+---
+apiVersion : autoscaling/v2beta1
+kind : HorizontalPodAutoscaler
+metadata :
+  name : my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion : apps/v2beat1v1
+    kind : Deployment
+    name : my-web-deployment-autoscaling
+  minReplicas : 2
+  maxReplicas : 6
+  metrics:
+  - type : Resource
+    resource:
+      name : cpu
+      targetAverageUtilization : 70
+  - type : Resorce
+    resource:
+      name : memory
+      targetAverageUtilization : 80

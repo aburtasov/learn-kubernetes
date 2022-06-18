@@ -1,0 +1,23 @@
+apiVersion : apps/v1
+kind : Deployment
+metadata:
+  name : my-web-deployment-replicas
+  labels:
+    app : my-k8s-app
+    env : prod
+    owner : user
+spec:
+  replicas : 3
+  selector:
+    matchLabels:
+      project : cia
+  template:
+    metadata:
+      lables:
+        project : cia
+    spec:
+      containers:
+        - name: kgb-web
+          image: repo_name/image_name:version1 #version2
+          ports:
+            - containerPort:80

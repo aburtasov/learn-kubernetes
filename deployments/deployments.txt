@@ -1,0 +1,104 @@
+2 nodes --> 2 pods with container Web Server --> deployment my-app
+
+kubectl get nodes
+
+kubectl get pods
+
+kubectl get deployments
+
+kubectl get deploy
+
+kubectl create deployment andrey-deployment --image repo_name/image_name:latest
+
+kubectl get deploy
+
+kubectl get pods
+
+kubectl describe pods andrey-deployment-78fdsfgsdg-8pskq
+
+kubectl describe deployment andrey-deployment
+
+kubectl scale deployment andrey-deployment --replicas 4
+
+kubectl get deploy
+
+kubectl get rs (replicas)
+
+kubectl delete pods pod_name
+
+kubectl get pods (сработал автоскейлинг - 4 pods)
+
+kubectl autoscale deployment andrey-deployment --min=4 --max=6 --cpu-percent=80
+
+kubectl get deploy
+
+kubectl get hpa
+
+kubectl rollout history deployment/andrey-deployment
+
+kubectl rollout status deployment/andrey-deployment
+
+//Установим новый image
+
+kubectl set image deployment/andrey-deployment old_image=new_image:version1 --record
+
+kubectl rollout status deployment/andrey-deployment
+
+kubectl rollout history deployment/andrey-deployment
+
+kubectl set image deployment/andrey-deployment old_image=new_image:version2 --record
+
+kubectl rollout status deployment/andrey-deployment
+
+kubectl rollout history deployment/andrey-deployment
+
+kubectl rollout undo deployment/andrey-deployment
+
+kubectl set image deployment/andrey-deployment old_image=new_image:latest --record
+
+kubectl rollout undo deployment/andrey-deployment --to-revision=4
+
+kubectl describe deployment andrey-deployment
+
+kubectl rollout restart deployment/andrey-deployment (update latest image)
+
+==========================================================================================
+
+Manifest file
+
+==========================================================================================
+
+kubectl apply -f deployment_1_simple.yaml
+
+kubectl get deploy
+
+kubectl apply -f deployment_2_replicas.yaml
+
+kubectl get deploy
+
+kubectl get pods
+
+kubectl port-forward my-web-deployment-replicas-67bbdsfsd-fgssfg 6789:80
+
+kubectl apply -f deployment_2_replicas.yaml // after update image
+
+kubectl get pods
+
+kubectl port-forward my-web-deployment-replicas-67bbdsfsd-f645g 7788:80
+
+kubectl apply -f deployment_3_autoscaling.yaml
+
+kubectl get deploy
+
+kubectl get pods
+
+kubectl get hpa
+
+kubectl delete -f deployment_1_simple.yaml
+
+kubectl delete -f deployment_2_replicas.yaml
+
+kubectl delete -f deployment_3_autoscaling.yaml
+
+kubectl delete deployment --all
+
