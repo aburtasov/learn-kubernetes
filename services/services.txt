@@ -1,0 +1,100 @@
+2 nodes --> with 2 deployments --> deployment myweb(2 replicas with 1 container) and deployment myapp(2 replicas with 2 container) --> service myweb and service myapp
+
+=====================================================================================
+
+Сервисы:
+
+ClusterIP - IP только внутри k8s ClusterIP(default)
+NodePort - Определенный порт на всех k8s worker nodes
+ExternalName -DNS CNAME Record
+LoadBalancer - Только в Cloud Clusters(AWS, GCP, Azure)
+
+=====================================================================================
+
+kubectl get nodes
+
+kubectl get pods
+
+kubectl get deploy
+
+kubectl create deployment andrey-deployment --image repo_name/image_name:latest
+
+kubectl scale deployment andrey-deployment --replicas=3
+
+kubectl get pods
+
+kubectl expose deployment andrey-deployment --type=ClusterIP --port=80
+
+kubectl get services // покажет 2 сервиса: kubernetes(default) и andrey-deployment service
+
+kubectl get svc // short
+
+ssh на одну из node внутри кластера
+
+curl 10.3.255.165  // каждый раз будет страничка с разных подов
+
+kubectl delete service andrey-deployment
+
+=============================================================================
+
+kubectl get deploy
+
+kubectl expose deployment andrey-deployment --type=NodePort --port 80
+
+kubectl get services // создал порт на всех нодах 80:31857 TCP
+
+kubectl describe nodes | grep ExternalIP
+
+ExternalIP: 35.185.236.85
+ExternalIP: 34.82.246.76
+ExternalIP: 34.105.119.24
+
+// в браузере 35.185.236.85:31857
+
+kubectl delete service andrey-deployment
+
+===============================================================================
+
+kubectl expose deployment andrey-deployment --type=LoadBalancer --port 80
+
+kubectl get svc // берем ExternalIP
+
+// в браузере вводим ExternalIP  // LoadBalancer самое интересное
+
+kubectl delete service andrey-deployment
+
+kubectl delete deployment andrey-deployment
+
+===============================================================================
+Manifest file
+===============================================================================
+
+kubectl apply -f service_1_loadbalancer_single.yaml
+
+kubectl get deploy
+
+kubectl get svc // получаем ExternalIP . Можно привязать к domain name
+
+================================================================================
+
+kubectl apply -f service_2_loadbalancer_multi.yaml
+
+kubectl get deploy
+
+kubectl get svc // получаем ExternalIP // по внешнему ip набираем порт 80 и 8888
+
+=================================================================================
+
+kubectl apply -f service_3_loadbalancer_autoscaling.yaml
+
+kubectl get svc //  получаем ExternalIP
+
+kubectl get pods
+
+=================================================================================
+
+kubectl delete -f
+
+
+
+
