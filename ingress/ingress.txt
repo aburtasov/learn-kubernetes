@@ -1,0 +1,77 @@
+kubernetes cluster without ingress controller 
+
+deploy MyWeb1 -> service MyWeb1 Load Balancer  -> web1.example.com
+deploy MyWeb2 -> service MyWeb2 Load Balancer  -> web2.example.com 
+
+каждый lb стоит денег.
+
+Тот же setup с ingress controller: 
+
+deploy MyWeb1 -> service MyWeb1 ClusterIP -> Ingress controller(Ingress rules) -> service ingress Load Balancer(web1.example.com, web2.example.com , www.example.com)
+deploy MyWeb2 -> service MyWeb2 ClusterIP 
+
+=========================================================================
+
+github.com/kubernetes/ingress-nginx
+github.com/jcmoraisjr/haproxy-ingress
+github.com/projectcontour/contour
+github.com/traefik/traefik
+etc
+
+
+=========================================================================
+
+kubectl get nodes
+
+contour
+
+kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
+
+kubectl get svc 
+kubectl get deploy
+
+kubectl get services -n projectcontour
+
+external ip -> Load Balancer -> use in route53 aws 
+
+=======================================================================
+
+kubectl create deployment main --image=repo_name/image:latest
+
+kubectl create deployment web1 --image=repo_name/image:version1
+
+kubectl create deployment web2 --image=repo_name/image:version2
+
+kubectl create deployment tomcat --image=tomcat:8.5.38
+
+kubectl get pods
+
+kubectl get deploy
+
+kubectl scale deployment main --replicas 2
+
+kubectl scale deployment web1 --replicas 2
+
+kubectl scale deployment web2 --replicas 2
+
+kubectl get svc 
+
+kubectl expose deployment main --port=80 --type=ClusterIP
+kubectl expose deployment web1 --port=80 --type=ClusterIP
+kubectl expose deployment web2 --port=80 --type=ClusterIP
+kubectl expose deployment tomcat --port=8080 --type=ClusterIP
+
+kubectl get services -o wide 
+
+======================================================================
+
+Manifest files
+
+=======================================================================
+
+kubectl apply -f ingress-hosts.yaml
+
+kubectl get ingress
+
+kubectl descrine ingress
+
