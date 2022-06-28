@@ -1,0 +1,76 @@
+kube cluster -> 2 files (deployment.yaml and service.yaml...can be more) kubectl apply ...
+что если нужно будет задеплоить приложение еще раз, но с другими значениями ->
+
+дубликат директории -> изменение значений и kubectl apply...а что если фалов много или еще раз задеплоить, но с другимим параметрами?
+
+Для этого используется Helm
+
+Helm Chart - упаковка нашего приложения в Helm. Все файлы идутся в директорию templates. И плюс два файла: values.yaml(Defaults values for my Helm Chart),
+Chart.yaml(техническая информация о Helm Chart).
+
+Деплоится : helm install App App-HelmChart/ ; helm install App1 App-HelmChart/ -f prod_values.yaml ; helm install App2 App-HelmChart/ --set container.image=reponame/image_name
+
+helm install App2 App-HelmChart/ --set container.image=reponame/image_name --set replicaCount=4
+
+helm.sh
+
+download binary -> copy link location -> wget link -> tar -xf file_name -> sudo mv helm /bin/
+
+kubectl get nodes
+
+helm version 
+
+helm create Chart-Auto 
+
+helm list 
+
+========deploy======================
+
+helm list 
+
+helm install app chart-test/ 
+helm list 
+
+kubectl get pods
+kubectl get deploy 
+kubectl get svc 
+
+=========deploy2====================
+
+helm install app2 chart-test/  --set container.image=repo_name/image_name --set replicaCount=5
+
+helm list
+kubectl get svc 
+kubectl get pods
+
+helm upgrade app2 chart-test/  --set container.image=repo_name/image_name --set replicaCount=10
+
+==============deploy_prod========================
+
+helm install prod chart-test/ -f prod_values.yaml
+
+helm list
+kubectl get svc 
+
+===============================================
+
+helm package chart-test/
+
+==============================================
+
+helm install app4 *.tgz 
+
+=============================================
+
+helm search repo 
+helm search hub apache # поиск готового чарта для apache
+
+bitnami.com -> helm repo add bitnami # repo bitname 
+helm search repo 
+
+helm install web_site_apache bitnami/apache
+kubectl get svc 
+
+использовать готовый чарт и менять параметры -> создать свой файлик и закинуть переменные в чарт, если нужны свои , а не Defaults
+helm install custom-apache bitnami/apache -f apache.mywebpage.yaml 
+kubectl get svc # берем ссылку LoadBalancer 

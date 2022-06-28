@@ -1,0 +1,18 @@
+apiVersion : v2
+name : App-HelmChart
+description : My Helm chart for k8s
+type : application
+version : 0.1.0 # this is the Helm Chart version
+appVersion : "1.2.3" # this is the version of the application being deployed
+
+# необязательно
+
+keywords :
+  - apache
+  - http
+  - https
+
+maintainers :
+  - name : Me
+    email : Me@example.com
+    url : www.test.net

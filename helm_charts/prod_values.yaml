@@ -1,0 +1,6 @@
+# Prod values
+
+container :
+  image : repo_name/image_name:varsion2
+
+replicaCount : 20
