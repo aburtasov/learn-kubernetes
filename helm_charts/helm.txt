@@ -74,3 +74,7 @@ kubectl get svc
 использовать готовый чарт и менять параметры -> создать свой файлик и закинуть переменные в чарт, если нужны свои , а не Defaults
 helm install custom-apache bitnami/apache -f apache.mywebpage.yaml 
 kubectl get svc # берем ссылку LoadBalancer 
+
+===================================================
+
+helm delete app 
